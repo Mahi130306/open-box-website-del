@@ -3,13 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-// import { DISCORD_JN_INVITE, DISCORD_DEV_INVITE, DISCORD_GG_INVITE } from '@/lib/constants' // adjust path
 
-// const INVITE_BY_SLUG: Record<string, string> = {
-//   jn: DISCORD_JN_INVITE,
-//   dev: DISCORD_DEV_INVITE,
-//   gg: DISCORD_GG_INVITE,
-// }
 const questions = [
   {
     id: 1,
@@ -73,12 +67,6 @@ const recommendations = {
     description: 'Coming soon - connect with professionals and grow your network.',
     comingSoon: true,
   },
-  // explorer: {
-  //   name: 'Classic',
-  //   slug: 'classic',
-  //   description: 'Coming soon - the original OpenBox experience, reimagined.',
-  //   comingSoon: true,
-  // },
 }
 
 export function Quiz() {
@@ -89,6 +77,11 @@ export function Quiz() {
   const handleAnswer = (value: string) => {
     const newAnswers = { ...answers, [questions[currentQuestion].id]: value }
     setAnswers(newAnswers)
+
+    // Question 1 answered: dispatch window event to filter/highlight directory search
+    if (currentQuestion === 0) {
+      window.dispatchEvent(new CustomEvent('quiz-selection', { detail: { value } }))
+    }
 
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(currentQuestion + 1)
@@ -101,7 +94,7 @@ export function Quiz() {
     if (answers[1] === 'gamer') return recommendations.gamer
     if (answers[1] === 'developer') return recommendations.developer
     if (answers[1] === 'learner') return recommendations.learner
-    if (answers[1] === 'explorer') return recommendations.default  // explorer/classic is commented out — fall back to default
+    if (answers[1] === 'explorer') return recommendations.default
     if (answers[2] === 'mentorship') return recommendations.networker
     if (answers[2] === 'browsing') return recommendations.default
     return recommendations.default
@@ -125,8 +118,7 @@ export function Quiz() {
               <CardDescription className="text-muted-foreground">{rec.description}</CardDescription>
             </CardHeader>
             <CardFooter>
-              <Button asChild className="w-full" disabled={rec.comingSoon}>
-
+              <Button asChild className="w-full min-h-[44px]" disabled={rec.comingSoon}>
                 <a href={rec.comingSoon ? '#' : `/servers/${rec.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -140,7 +132,7 @@ export function Quiz() {
                   {rec.comingSoon ? `${rec.name} - Coming Soon` : `View ${rec.name} Server`}
                 </a>
               </Button>
-              <Button variant="outline" onClick={resetQuiz} className="ml-2">
+              <Button variant="outline" onClick={resetQuiz} className="ml-2 min-h-[44px]">
                 Re-answer
               </Button>
             </CardFooter>
@@ -167,7 +159,7 @@ export function Quiz() {
               <Button
                 key={opt.value}
                 variant="outline"
-                className="w-full justify-start text-left"
+                className="w-full justify-start text-left min-h-[44px]"
                 onClick={() => handleAnswer(opt.value)}
               >
                 {opt.label}

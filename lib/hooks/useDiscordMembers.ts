@@ -3,11 +3,21 @@
 import { useState, useEffect } from 'react';
 import { servers } from '@/lib/community-data';
 
+export interface DiscordServerStats {
+  members: number;
+  online: number;
+  isFallback: boolean;
+}
+
 export function useDiscordMembers(targetSlug?: string) {
-  const [counts, setCounts] = useState<Record<string, number>>(() => {
-    const initial: Record<string, number> = {};
+  const [counts, setCounts] = useState<Record<string, DiscordServerStats>>(() => {
+    const initial: Record<string, DiscordServerStats> = {};
     servers.forEach(s => {
-      initial[s.slug] = s.memberCount;
+      initial[s.slug] = {
+        members: s.memberCount,
+        online: Math.round(s.memberCount * 0.25), // reasonable starting estimate for online
+        isFallback: true
+      };
     });
     return initial;
   });
@@ -31,7 +41,11 @@ export function useDiscordMembers(targetSlug?: string) {
               if (data.approximate_member_count !== undefined && mounted) {
                 setCounts((prev) => ({
                   ...prev,
-                  [server.slug]: data.approximate_member_count
+                  [server.slug]: {
+                    members: data.approximate_member_count,
+                    online: data.approximate_presence_count || 0,
+                    isFallback: false
+                  }
                 }));
               }
             }

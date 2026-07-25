@@ -40,7 +40,7 @@ export default function ServersPage() {
             <Link
               key={server.slug}
               href={`/servers/${server.slug}`}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface/50 shadow-sm transition-all hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-lg"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface/50 shadow-sm transition-all hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-lg min-h-[180px]"
             >
               <div className={`h-1 bg-gradient-to-r ${server.accent}`} />
               <div className="flex flex-col flex-1 p-5">
@@ -63,7 +63,7 @@ export default function ServersPage() {
                 {server.memberCount > 0 && (
                   <ServerMemberCountInline slug={server.slug} initialCount={server.memberCount} />
                 )}
-                <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity min-h-[32px]">
                   Visit Server <ArrowRight className="h-3.5 w-3.5" />
                 </div>
               </div>

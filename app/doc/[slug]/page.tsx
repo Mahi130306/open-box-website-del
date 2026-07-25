@@ -17,12 +17,29 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const docMeta = docs.find(d => d.slug === slug)
   if (!docMeta) return {}
+  const title = `${docMeta.title} — Open Box Docs`
+  const description = docMeta.description
+  const url = `https://openboxcomm.in/doc/${slug}`
+  const imageUrl = 'https://openboxcomm.in/images/og-default.png'
+
   return {
-    title: `${docMeta.title} — Open Box Docs`,
-    description: docMeta.description,
+    title,
+    description,
+    alternates: {
+      canonical: `/doc/${slug}`,
+    },
     openGraph: {
-      title: `${docMeta.title} — Open Box Docs`,
-      description: docMeta.description,
+      title,
+      description,
+      url,
+      type: 'article',
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: docMeta.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
     },
   }
 }
@@ -38,7 +55,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6 lg:px-8">
       <div className="mb-6">
-        <Button asChild variant="outline" className="group">
+        <Button asChild variant="outline" className="group min-h-[44px]">
           <Link href="/doc">
             <ChevronLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Docs
@@ -91,7 +108,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
           </div>
 
           <div className="mt-12 border-t border-border/50 pt-8">
-            <Button asChild variant="outline" className="group">
+            <Button asChild variant="outline" className="group min-h-[44px]">
               <Link href="/doc">
                 <ChevronLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                 Back to Docs

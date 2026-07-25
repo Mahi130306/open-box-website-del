@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { BookOpen, Calendar, FileText, Users, Hash, Shield } from 'lucide-react'
@@ -22,6 +23,41 @@ const DOC_SLUG_MAP: Record<string, string> = {
 
 export async function generateStaticParams() {
   return servers.filter((s) => s.isLive).map((s) => ({ slug: s.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const server = getServer(slug)
+  if (!server) return {}
+  const title = `${server.name} — Open Box Servers`
+  const description = server.description
+  const url = `https://openboxcomm.in/servers/${server.slug}`
+  const imageUrl = 'https://openboxcomm.in/images/og-default.png'
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/servers/${server.slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: server.name }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
+  }
 }
 
 export default async function ServerPage({
@@ -117,57 +153,12 @@ export default async function ServerPage({
                 </div>
               </section>
             )}
-
-            {/* Rules */}
-            {/* {server.rules && server.rules.length > 0 && (
-              <section>
-                <h2 className="mb-4 !text-2xl">Server Rules</h2>
-                <ul className="space-y-3">
-                  {server.rules.map((rule, i) => (
-                    <li
-                      key={rule}
-                      className="flex items-start gap-3 rounded-xl border border-border bg-surface px-4 py-3"
-                    >
-                      <span
-                        className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${server.accent} text-xs font-bold text-black/80`}
-                      >
-                        {i + 1}
-                      </span>
-                      <span className="text-sm text-muted-foreground">{rule}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )} */}
-
-            {/* Events */}
-            {/* <section>
-              <h2 className="mb-4 !text-2xl">Upcoming Events</h2>
-              {serverEvents.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-border bg-surface px-6 py-8 text-center text-muted-foreground">
-                  No upcoming events — check back soon.
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {serverEvents.map((event) => (
-                    <Link
-                      key={event.id}
-                      href={`/events/${event.id}`}
-                      className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4 transition-all hover:border-white/20 hover:shadow-md"
-                    >
-                      <Calendar className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
-                      <span className="text-sm font-medium">{event.name}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </section> */}
           </div>
 
           {/* Sidebar */}
           <aside className="space-y-5">
             <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
-              <Button asChild className="w-full" size="lg">
+              <Button asChild className="w-full min-h-[44px]" size="lg">
                 <a
                   href={server.inviteCode ? `https://discord.gg/${server.inviteCode}` : '#'}
                   target="_blank"
@@ -178,19 +169,19 @@ export default async function ServerPage({
               </Button>
 
               <div className="mt-5 space-y-2 border-t border-border pt-5">
-                <Button asChild variant="ghost" className="w-full justify-start gap-2">
+                <Button asChild variant="ghost" className="w-full justify-start gap-2 min-h-[44px]">
                   <Link href={`/doc/${DOC_SLUG_MAP[server.slug] || 'getting-started'}`}>
                     <BookOpen className="h-4 w-4" />
                     Server Documentation
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" className="w-full justify-start gap-2">
+                <Button asChild variant="ghost" className="w-full justify-start gap-2 min-h-[44px]">
                   <Link href={`/blogs?server=${slug}`}>
                     <FileText className="h-4 w-4" />
                     Server Blogs
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" className="w-full justify-start gap-2">
+                <Button asChild variant="ghost" className="w-full justify-start gap-2 min-h-[44px]">
                   <Link href="/legal/community-rules">
                     <Shield className="h-4 w-4" />
                     Community Rules
@@ -211,7 +202,7 @@ export default async function ServerPage({
                     <Link
                       key={s.slug}
                       href={`/servers/${s.slug}`}
-                      className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-accent"
+                      className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-accent min-h-[44px]"
                     >
                       {SERVER_LOGOS[s.slug] ? (
                         <div className="relative h-7 w-7 flex-shrink-0 overflow-hidden rounded-md">
