@@ -29,8 +29,9 @@ export function ConsentBanner() {
 
   return (
     <div
-      className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-[999] w-[clamp(280px,92vw,520px)] transition-all duration-300 ${exiting ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
-        }`}
+      className={`fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-[460px] z-[999] transition-all duration-300 ${
+        exiting ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+      }`}
     >
       <div className="rounded-xl border border-border bg-surface/95 backdrop-blur-md shadow-lg px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3">
         <p className="text-xs text-muted-foreground leading-relaxed flex-1">
@@ -48,23 +49,23 @@ export function ConsentBanner() {
           </Link>
           .
         </p>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center justify-end gap-2 shrink-0">
           <button
             onClick={() => animateOut(() => { accept(); window.dispatchEvent(new Event('cookie-consent-accepted')) })}
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-foreground text-background hover:opacity-80 transition-opacity"
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-foreground text-background hover:opacity-80 transition-opacity min-h-[36px] min-w-[70px]"
           >
             Accept
           </button>
           <button
             onClick={() => animateOut(() => reject())}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-surface transition-colors text-muted-foreground"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-surface transition-colors text-muted-foreground min-h-[36px]"
           >
             Reject
           </button>
           <button
             onClick={() => animateOut(() => setDismissed(true))}
             aria-label="Dismiss"
-            className="text-muted-foreground hover:text-foreground transition-colors text-lg leading-none"
+            className="text-muted-foreground hover:text-foreground transition-colors text-lg p-1 min-h-[36px] min-w-[36px] flex items-center justify-center"
           >
             ✕
           </button>

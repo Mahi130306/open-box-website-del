@@ -1,0 +1,21 @@
+
+> open-box-website@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 559ms
+
+○ Compiling / ...
+ HEAD / 200 in 9.0s (next.js: 7.3s, proxy.ts: 247ms, application-code: 1475ms)
+ GET / 200 in 278ms (next.js: 20ms, proxy.ts: 23ms, application-code: 235ms)
+ GET /api/whats-new 200 in 1133ms (next.js: 1065ms, proxy.ts: 38ms, application-code: 29ms)
+ GET /api/discord-members?code=nF48vqYwEk 200 in 1472ms (next.js: 1180ms, proxy.ts: 35ms, application-code: 257ms)
+ GET /api/discord-members?code=7ZWckKU89J 200 in 1501ms (next.js: 1181ms, proxy.ts: 23ms, application-code: 297ms)
+ GET /api/discord-members?code=etnc7ZpDKT 200 in 1544ms (next.js: 1182ms, proxy.ts: 37ms, application-code: 324ms)
+ GET / 200 in 1027ms (next.js: 71ms, proxy.ts: 86ms, application-code: 870ms)
+ GET /api/whats-new 200 in 179ms (next.js: 57ms, proxy.ts: 116ms, application-code: 6ms)
+ GET /api/discord-members?code=etnc7ZpDKT 200 in 381ms (next.js: 138ms, proxy.ts: 27ms, application-code: 215ms)
+ GET /api/discord-members?code=7ZWckKU89J 200 in 433ms (next.js: 36ms, proxy.ts: 19ms, application-code: 378ms)
+ GET /api/discord-members?code=nF48vqYwEk 200 in 424ms (next.js: 115ms, proxy.ts: 26ms, application-code: 283ms)

@@ -1,33 +1,54 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { X, Megaphone } from 'lucide-react'
 import { importantNotice } from '@/lib/community-data'
 
 export function ImportantNoticeMarquee() {
   const { text, linkText, linkUrl } = importantNotice
-  // Repeat the notice multiple times to create a seamless infinite scroll.
-  // 15 instances ensures it is a multiple of 3 for perfect translateX(-33.333%) alignment.
-  const repeats = Array.from({ length: 15 }, (_, i) => i)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const isDismissed = localStorage.getItem('ob-dismissed-wick-notice')
+    if (!isDismissed) {
+      setVisible(true)
+    }
+  }, [])
+
+  const handleDismiss = () => {
+    localStorage.setItem('ob-dismissed-wick-notice', 'true')
+    setVisible(false)
+  }
+
+  if (!visible) return null
 
   return (
-    <div className="w-full overflow-hidden bg-zinc-950 border-b border-zinc-800 py-2.5 text-xs sm:text-sm font-medium text-zinc-300 select-none">
-      <div className="relative flex overflow-x-hidden">
-        <div className="animate-marquee flex whitespace-nowrap gap-16 w-max hover:[animation-play-state:paused]" style={{ animationDuration: '60s' }}>
-          {repeats.map((index) => (
-            <div key={index} className="flex items-center gap-1.5 shrink-0">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan-500 shrink-0" />
-              <span className="tracking-wide text-zinc-300">
-                {text}
-              </span>
-              <Link
-                href={linkUrl}
-                className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors font-semibold"
-              >
-                {linkText}
-              </Link>
-            </div>
-          ))}
+    <div className="relative w-full bg-zinc-950 border-b border-zinc-800 py-2.5 px-4 text-xs sm:text-sm font-medium text-zinc-300 select-none animate-in fade-in slide-in-from-top duration-300">
+      <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
+        {/* Center content */}
+        <div className="flex-1 flex items-center justify-center gap-2">
+          <Megaphone className="h-4 w-4 text-cyan-400 shrink-0 hidden sm:inline-block" />
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan-500 shrink-0 sm:hidden" />
+          <span className="tracking-wide text-zinc-300 text-center text-xs sm:text-sm leading-snug">
+            {text}{' '}
+            <Link
+              href={linkUrl}
+              className="inline-block text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors font-semibold ml-1"
+            >
+              {linkText}
+            </Link>
+          </span>
         </div>
+
+        {/* Dismiss Button */}
+        <button
+          onClick={handleDismiss}
+          className="p-1 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900 transition-colors shrink-0"
+          aria-label="Dismiss announcement"
+        >
+          <X className="h-4 w-4" />
+        </button>
       </div>
     </div>
   )

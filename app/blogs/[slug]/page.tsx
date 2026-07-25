@@ -18,14 +18,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = getBlog(slug)
   if (!post) return {}
+  const title = `${post.title} — Open Box Blogs`
+  const description = post.excerpt
+  const url = `https://openboxcomm.in/blogs/${post.slug}`
+  const imageUrl = 'https://openboxcomm.in/images/og-default.png'
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title,
+    description,
+    alternates: {
+      canonical: `/blogs/${post.slug}`,
+    },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description,
+      url,
       type: 'article',
       publishedTime: post.date,
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
     },
   }
 }
@@ -117,7 +133,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
       <Link
         href="/blogs"
-        className="group mb-10 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-pink-500"
+        className="group mb-10 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-pink-500 min-h-[44px]"
       >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
         All posts
@@ -140,7 +156,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             {author && (
               <Link
                 href={`/team/${author.slug}`}
-                className="flex items-center gap-2.5 text-sm font-semibold text-foreground transition-colors hover:text-pink-500"
+                className="flex items-center gap-2.5 text-sm font-semibold text-foreground transition-colors hover:text-pink-500 min-h-[44px] flex"
               >
                 <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-pink-500/10 text-xs font-bold text-pink-600 dark:text-pink-400">
                   {author.avatar ? (
@@ -196,18 +212,13 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 <span className="text-xs font-bold uppercase tracking-wider text-pink-500">Written by</span>
                 <h3 className="mt-0.5 text-lg font-bold leading-tight text-foreground">{author.name}</h3>
                 <p className="text-sm font-medium text-pink-600 dark:text-pink-400">{author.role}</p>
-                {/* {(author.aboutSection || author.bio) && (
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                    {author.aboutSection || author.bio}
-                  </p>
-                )} */}
               </div>
             </div>
 
             <div className="flex shrink-0 items-center gap-4 sm:flex-col sm:items-end sm:gap-3">
               <Link
                 href={`/team/${author.slug}`}
-                className="text-sm font-bold text-pink-500 transition-colors hover:text-pink-600 dark:hover:text-pink-400"
+                className="text-sm font-bold text-pink-500 transition-colors hover:text-pink-600 dark:hover:text-pink-400 min-h-[44px] flex items-center"
               >
                 View profile →
               </Link>
@@ -218,7 +229,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                       href={author.socials.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="transition-colors hover:text-pink-500"
+                      className="transition-colors hover:text-pink-500 min-h-[44px] flex items-center p-1"
                       aria-label={`${author.name}'s GitHub`}
                     >
                       <Github className="h-4 w-4" />
@@ -229,7 +240,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                       href={author.socials.twitter}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="transition-colors hover:text-pink-500"
+                      className="transition-colors hover:text-pink-500 min-h-[44px] flex items-center p-1"
                       aria-label={`${author.name}'s Twitter`}
                     >
                       <Twitter className="h-4 w-4" />
@@ -240,7 +251,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                       href={author.socials.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="transition-colors hover:text-pink-500"
+                      className="transition-colors hover:text-pink-500 min-h-[44px] flex items-center p-1"
                       aria-label={`${author.name}'s Instagram`}
                     >
                       <Instagram className="h-4 w-4" />
@@ -251,7 +262,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                       href={author.socials.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="transition-colors hover:text-pink-500"
+                      className="transition-colors hover:text-pink-500 min-h-[44px] flex items-center p-1"
                       aria-label={`${author.name}'s LinkedIn`}
                     >
                       <Linkedin className="h-4 w-4" />
@@ -267,7 +278,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
       <div className="mt-16 border-t border-border/50 pt-8">
         <Link
           href="/blogs"
-          className="group inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-pink-500"
+          className="group inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-pink-500 min-h-[44px]"
         >
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           All posts
