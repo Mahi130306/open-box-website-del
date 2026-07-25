@@ -14,3 +14,8 @@
  GET /api/discord-members?code=nF48vqYwEk 200 in 1472ms (next.js: 1180ms, proxy.ts: 35ms, application-code: 257ms)
  GET /api/discord-members?code=7ZWckKU89J 200 in 1501ms (next.js: 1181ms, proxy.ts: 23ms, application-code: 297ms)
  GET /api/discord-members?code=etnc7ZpDKT 200 in 1544ms (next.js: 1182ms, proxy.ts: 37ms, application-code: 324ms)
+ GET / 200 in 1027ms (next.js: 71ms, proxy.ts: 86ms, application-code: 870ms)
+ GET /api/whats-new 200 in 179ms (next.js: 57ms, proxy.ts: 116ms, application-code: 6ms)
+ GET /api/discord-members?code=etnc7ZpDKT 200 in 381ms (next.js: 138ms, proxy.ts: 27ms, application-code: 215ms)
+ GET /api/discord-members?code=7ZWckKU89J 200 in 433ms (next.js: 36ms, proxy.ts: 19ms, application-code: 378ms)
+ GET /api/discord-members?code=nF48vqYwEk 200 in 424ms (next.js: 115ms, proxy.ts: 26ms, application-code: 283ms)

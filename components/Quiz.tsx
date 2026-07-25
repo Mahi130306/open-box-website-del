@@ -70,6 +70,8 @@ const recommendations = {
 }
 
 export function Quiz() {
+  return null; // programmatically deactivated
+
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [completed, setCompleted] = useState(false)
