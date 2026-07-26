@@ -228,7 +228,7 @@ export function Footer() {
         <div className="h-px bg-gradient-to-r from-border via-border to-border mb-8"></div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-xs text-muted-foreground text-center md:text-left">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-muted-foreground text-center">
           <div className="flex flex-col sm:flex-row items-center gap-x-2 gap-y-1">
             <p>© {new Date().getFullYear()} Open Box. All rights reserved.</p>
             <span className="hidden sm:inline text-muted-foreground/30">•</span>
@@ -238,7 +238,21 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div>
+            <p>
+              Want to contribute to the site?{' '}
+              <Link
+                href="https://github.com/Mahi130306/OpenBoxComm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-foreground/80 hover:text-cyan-500 transition-colors duration-150"
+              >
+                GitHub
+              </Link>
+            </p>
+          </div>
+
+          <div>
             <p>
               Built with passion by{' '}
               <Link
