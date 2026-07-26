@@ -6,9 +6,9 @@
 
 ## A modern, high-performance Discord community platform
 
-**Built with Next.js · TypeScript · Tailwind CSS · Framer Motion · GSAP · Three.js**
+**Built with Next.js · TypeScript · Tailwind CSS · Framer Motion · GSAP**
 
-[![Live Site](https://img.shields.io/badge/live-openboxcomm.in-FF5A5F?style=for-the-badge)](https://www.openboxcomm.in/)
+[![Live Site](https://img.shields.io/badge/live-openboxcomm.in-FF4040?style=for-the-badge)](https://www.openboxcomm.in/)
 
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/7ZWckKU89J)
 
@@ -16,7 +16,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/mahihh1212) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/mahi-h-h) [![X](https://img.shields.io/badge/X-black.svg?logo=X&logoColor=white)](https://x.com/MahiHH212) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:mahihh.work@gmail.com)
 
 **[Visit the Site](https://www.openboxcomm.in/)** · **[Report a Bug](mailto:support@openboxcomm.in)** · **[Request a Feature](mailto:hello@openboxcomm.in)**
 
@@ -26,23 +26,24 @@
 
 ## 📖 Table of Contents
 
-- [Quick Start](#-quick-start)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Content Management](#-content-management)
-- [Scripts](#-scripts)
-- [Deployment](#-deployment)
-- [Key Features](#-key-features)
+- [Quick Start](#quick-start)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Content Management](#content-management)
+- [Scripts](#scripts)
+- [Deployment](#deployment)
+- [Key Features](#key-features)
 
 ---
 
+<a id="quick-start"></a>
 ## 🚀 Quick Start
 
 ### Installation
 
 ```bash
-git clone <repo-url>
-cd open-box-website-del
+git clone https://github.com/Mahi130306/OpenBoxComm/
+cd OpenBoxComm
 npm install
 ```
 
@@ -83,6 +84,7 @@ Open **[http://localhost:3000](http://localhost:3000)** and you're live.
 
 ---
 
+<a id="tech-stack"></a>
 ## 🛠️ Tech Stack
 
 | Category | Technology |
@@ -93,16 +95,17 @@ Open **[http://localhost:3000](http://localhost:3000)** and you're live.
 | 🧱 UI Library | Radix UI (`@radix-ui/react-*`) + shadcn/ui |
 | 📄 Content | TypeScript Objects (`lib/community-data.ts`, `lib/docs.ts`) |
 | 🌗 Theme | next-themes (dark/light) |
-| 🧊 3D Graphics | Three.js |
+| 🧊 3D Graphics |  |
 | ✨ Animations | Framer Motion + GSAP |
 | 🔤 Icons | Lucide React |
 
 ---
 
+<a id="project-structure"></a>
 ## 📁 Project Structure
 
 ```
-open-box-website-del/
+OpenBoxComm/
 ├── app/                       # Next.js App Router (Pages, layouts, API routes)
 │   ├── (auth)/                # Auth routes
 │   ├── about/, blogs/, doc/   # Main pages
@@ -125,6 +128,7 @@ open-box-website-del/
 
 ---
 
+<a id="content-management"></a>
 ## 📝 Content Management
 
 Our content is currently managed via TypeScript objects rather than markdown/MDX files. This ensures strong typing and faster builds.
@@ -221,6 +225,7 @@ Add a logo at `/public/images/myserver.png`
 
 ---
 
+<a id="scripts"></a>
 ## 📜 Scripts
 
 ```bash
@@ -237,6 +242,7 @@ npm run lint
 
 ---
 
+<a id="deployment"></a>
 ## ☁️ Deployment
 
 > **Recommended:** Vercel, for seamless Next.js App Router integration.
@@ -252,6 +258,7 @@ All `NEXT_PUBLIC_*` variables are exposed to the browser. Keep secrets server-si
 
 ---
 
+<a id="key-features"></a>
 ## ✨ Key Features
 
 | | |
@@ -263,7 +270,7 @@ All `NEXT_PUBLIC_*` variables are exposed to the browser. Keep secrets server-si
 | 🌓 **Dark Mode** | Theme switcher with `next-themes` |
 | 📈 **SEO Optimized** | Metadata, sitemap, structured data |
 | 📱 **Responsive** | Mobile-first design with Tailwind CSS |
-| ⚡ **Fast & Dynamic** | Framer Motion + GSAP + Three.js |
+| ⚡ **Fast & Dynamic** | Framer Motion + GSAP   |
 | ♿ **Accessible** | WCAG compliance with Radix UI components |
 
 ---
