@@ -37,7 +37,7 @@
 ---
 
 <a id="quick-start"></a>
-## 🚀 Quick Start
+## 🚀 Quick Start:
 
 ### Installation
 
@@ -85,7 +85,7 @@ Open **[http://localhost:3000](http://localhost:3000)** and you're live.
 ---
 
 <a id="tech-stack"></a>
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack:
 
 | Category | Technology |
 |---|---|
@@ -129,7 +129,7 @@ OpenBoxComm/
 ---
 
 <a id="content-management"></a>
-## 📝 Content Management
+## 📝 Content Management:
 
 Our content is currently managed via TypeScript objects rather than markdown/MDX files. This ensures strong typing and faster builds.
 
@@ -226,7 +226,7 @@ Add a logo at `/public/images/myserver.png`
 ---
 
 <a id="scripts"></a>
-## 📜 Scripts
+## 📜 Scripts:
 
 ```bash
 # Development
@@ -243,7 +243,7 @@ npm run lint
 ---
 
 <a id="deployment"></a>
-## ☁️ Deployment
+## ☁️ Deployment:
 
 > **Recommended:** Vercel, for seamless Next.js App Router integration.
 
@@ -259,7 +259,7 @@ All `NEXT_PUBLIC_*` variables are exposed to the browser. Keep secrets server-si
 ---
 
 <a id="key-features"></a>
-## ✨ Key Features
+## ✨ Key Features:
 
 | | |
 |---|---|
