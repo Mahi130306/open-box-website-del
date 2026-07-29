@@ -26,8 +26,8 @@ export function DirectorySearch() {
   return (
     <section className="border-b border-border py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="mb-4 text-center">Explore the Community</h2>
-        <div className="max-w-2xl mx-auto mb-8">
+        <h2 className="mb-10 text-center ">Explore all Boxes</h2>
+        {/* <div className="max-w-2xl mx-auto mb-8">
           <Input
             type="search"
             placeholder="Search servers by name, description, or tag..."
@@ -35,7 +35,7 @@ export function DirectorySearch() {
             onChange={(e) => setSearch(e.target.value)}
             className="bg-surface border-border"
           />
-        </div>
+        </div> */}
 
         {/* <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((cat) => (
@@ -77,7 +77,8 @@ export function DirectorySearch() {
                 {server.isLive ? (
                   <Button asChild className="w-full">
                     <Link href={`/servers/${server.slug}`}>
-                      Visit Server
+                      {/* Visit Server */}
+                      View Details
                     </Link>
                   </Button>
                 ) : (

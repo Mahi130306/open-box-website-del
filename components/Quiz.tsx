@@ -58,7 +58,7 @@ const recommendations = {
   gamer: {
     name: 'GG',
     slug: 'gg',
-    description: 'Gaming focused community with tournaments and game dev chats.',
+    description: 'Gaming focused community with tournaments and chats.',
     comingSoon: false,
   },
   learner: {
