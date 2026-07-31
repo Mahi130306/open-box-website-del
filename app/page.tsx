@@ -329,6 +329,10 @@ export default function Home() {
               </p>
             </div>
           </div>
+          <div className="flex items-center justify-center gap-1 text-center mt-8">
+            <p className='text-foreground'>Didn't find what you were looking for?</p>
+            <Link href="/help/faq" className="text-cyan-700 dark:text-cyan-400 hover:underline">Visit our FAQ</Link>
+          </div>
         </div>
       </section>
 
