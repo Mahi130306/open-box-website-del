@@ -54,7 +54,7 @@ export function DirectorySearch() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((server) => (
             <Card key={server.slug} className="flex flex-col overflow-hidden border-border bg-surface transition-transform hover:-translate-y-1">
-              <div className={`h-1.5 bg-gradient-to-r ${server.accent}`} />
+              <div className={`h-1.5 ${server.slug === 'jn' ? 'bg-black/90 dark:bg-white' : `bg-gradient-to-r ${server.accent}`}`} />
               <CardHeader>
                 <CardTitle>{server.name}</CardTitle>
                 <CardDescription className="text-muted-foreground line-clamp-2">

@@ -122,16 +122,9 @@ export default function Home() {
               Open Doors. Pick Yours.
             </h1>
 
-            {/* AI Summary & Key Takeaway Passage */}
-            <div className="mt-6 rounded-xl border border-border/80 bg-surface/80 p-4 text-sm leading-relaxed text-foreground shadow-sm backdrop-blur-sm sm:p-5">
-              <p className="font-semibold text-cyan-600 dark:text-cyan-400 mb-1">Key Takeaway:</p>
-              <p>
-                OpenBox is a free multi-server Discord community platform for developers, gamers, and students in India. We connect creators, coders, and gamers across dedicated server hubs for collaborative projects, gaming sessions, skill development, and peer connections without entry barriers.
-              </p>
-            </div>
-
-            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-              OpenBox is home to multiple communities across gaming, development, study, peer connections, and more. Free to join. Just find the one that fits and jump in.
+            {/* Key Takeaway & Hero Summary */}
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
+              OpenBox is a free, multi-server Discord platform connecting developers, coders, gamers, and students across India. It brings together dedicated server hubs for collaborative projects, gaming sessions, skill development, study, and peer connections, all without entry barriers. Just find the community that fits and jump in.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -147,7 +140,7 @@ export default function Home() {
             </div>
 
             {/* Real Experience Signals & Metrics */}
-            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 border-t border-border/70 pt-6">
+            {/* <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 border-t border-border/70 pt-6">
               <div className="flex items-center gap-3">
                 <div className="rounded-lg bg-cyan-500/10 p-2.5 text-cyan-600 dark:text-cyan-400">
                   <Users className="h-5 w-5" />
@@ -175,13 +168,13 @@ export default function Home() {
                   <div className="text-xs text-muted-foreground">Community Events</div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Freshness Signal */}
-            <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+            {/* <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="h-3.5 w-3.5 text-emerald-500" />
               <span>Community updated: July 31, 2026</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

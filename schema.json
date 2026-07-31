@@ -12,8 +12,7 @@
       "uiComponents": "Radix UI + shadcn/ui",
       "animations": [
         "Framer Motion",
-        "GSAP",
-        "Three.js"
+        "GSAP"
       ],
       "deployment": "Vercel"
     }

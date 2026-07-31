@@ -71,7 +71,6 @@ The UI is built with Tailwind CSS, leveraging Radix UI primitives and shadcn/ui.
 Open Box implements smooth animations to improve UI immersion:
 *   **Framer Motion**: Used for fluid page transitions, cards sliding/revealing on scroll, hover transformations on buttons/cards, and dynamic component mounts.
 *   **GSAP (GreenSock)**: Integrated for timeline-driven, high-performance scroll triggers, complex multi-step UI reveals, and landing page interactive elements.
-*   **Three.js**: Powering interactive 3D graphical representations and background animations.
 *   **Transitions**: Tailwind utility `transition-all duration-200` is used for hover effects on buttons and theme switches (dark <-> light).
 
 ---
