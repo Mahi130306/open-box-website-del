@@ -137,6 +137,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="text-cyan-700 dark:text-cyan-400" />
         <meta name="msvalidate.01" content="E7F02EAA1582F97200DE2848358DE313" />
         {/* Google Tag Manager */}
         <Script id="gtm-head" strategy="lazyOnload">
