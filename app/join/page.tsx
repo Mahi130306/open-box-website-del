@@ -10,6 +10,7 @@ import { INSTAGRAM_URL, YOUTUBE_URL, X_URL, WHATSAPP_URL, } from '@/lib/constant
 import { Suspense } from 'react'
 import { ScrollToSection } from '@/components/ScrollToSection'
 
+
 export const metadata: Metadata = {
   title: 'Join Open Box',
   description: 'Open Box is a free Discord community for developers, builders, gamers, and students. Pick a server and jump in.',
@@ -107,7 +108,7 @@ export default function JoinPage() {
             href={`/servers/${featured.slug}`}
             className="group relative flex flex-col items-center justify-between gap-8 overflow-hidden rounded-2xl border border-border bg-surface p-8 transition-all hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/10 md:flex-row md:p-10"
           >
-            <div className={`absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b ${featured.accent}`} />
+            <div className={`h-1.5 ${featured.slug === 'jn' ? 'bg-black/90 dark:bg-white' : `bg-gradient-to-r ${featured.accent}`}`} />
             <div className="flex-1 space-y-4">
               <div className="flex flex-wrap gap-2">
                 {featured.tags.map((tag) => (
