@@ -5,16 +5,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowRight,
-  Calendar,
+  Calendar as CalendarIcon,
   CalendarClock,
-  HeartHandshake,
-  MapPin,
-  Ticket,
-  Wifi,
-  Globe,
-  Zap,
-  Users,
+  ChevronLeft,
+  ChevronRight,
   Filter,
+  Globe,
+  HeartHandshake,
+  LayoutGrid,
+  List,
+  MapPin,
+  Sparkles,
+  Ticket,
+  Users,
+  Wifi,
+  Zap,
 } from 'lucide-react'
 import { events, type Event, type Sponsor } from '@/lib/community-data'
 
@@ -22,9 +27,21 @@ const serverFilters = ['All', 'Jn.', 'Dev', 'GG']
 const typeFilters = ['all', 'online', 'offline']
 
 const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ]
+
+const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 function getEventSupporters(event: Event) {
   return event.sponsors ?? (event.sponsor ? [event.sponsor] : [])
@@ -55,19 +72,40 @@ function getSupportStripText(sponsors: Sponsor[]) {
 
 function getServerAccent(server: string): string {
   switch (server) {
-    case 'Dev': return 'from-emerald-500 to-green-400'
-    case 'GG': return 'from-rose-500 to-red-400'
-    case 'Jn.': return 'from-amber-400 to-rose-400'
-    default: return 'from-cyan-500 to-blue-500'
+    case 'Dev':
+      return 'from-emerald-500 to-teal-400'
+    case 'GG':
+      return 'from-rose-500 to-red-400'
+    case 'Jn.':
+      return 'from-amber-400 to-rose-400'
+    default:
+      return 'from-cyan-500 to-blue-500'
+  }
+}
+
+function getServerBadgeClass(server: string): string {
+  switch (server) {
+    case 'Dev':
+      return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+    case 'GG':
+      return 'bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400'
+    case 'Jn.':
+      return 'bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400'
+    default:
+      return 'bg-cyan-500/10 border-cyan-500/30 text-cyan-600 dark:text-cyan-400'
   }
 }
 
 function getServerShadow(server: string): string {
   switch (server) {
-    case 'Dev': return 'hover:shadow-emerald-500/10 dark:hover:shadow-emerald-500/20'
-    case 'GG': return 'hover:shadow-rose-500/10 dark:hover:shadow-rose-500/20'
-    case 'Jn.': return 'hover:shadow-amber-400/10 dark:hover:shadow-amber-400/20'
-    default: return 'hover:shadow-cyan-500/10 dark:hover:shadow-cyan-500/20'
+    case 'Dev':
+      return 'hover:shadow-emerald-500/10 dark:hover:shadow-emerald-500/20'
+    case 'GG':
+      return 'hover:shadow-rose-500/10 dark:hover:shadow-rose-500/20'
+    case 'Jn.':
+      return 'hover:shadow-amber-400/10 dark:hover:shadow-amber-400/20'
+    default:
+      return 'hover:shadow-cyan-500/10 dark:hover:shadow-cyan-500/20'
   }
 }
 
@@ -78,8 +116,9 @@ export default function EventsPage() {
   const [mounted, setMounted] = useState(false)
 
   // Calendar states
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
+  const today = useMemo(() => new Date(), [])
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth())
+  const [currentYear, setCurrentYear] = useState(today.getFullYear())
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
 
   useEffect(() => setMounted(true), [])
@@ -131,8 +170,11 @@ export default function EventsPage() {
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString('en-US', {
-      weekday: 'short', month: 'short', day: 'numeric',
-      hour: 'numeric', minute: '2-digit',
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
     })
 
   const totalEvents = events.length
@@ -156,6 +198,12 @@ export default function EventsPage() {
     } else {
       setCurrentMonth((prev) => prev + 1)
     }
+  }
+
+  const handleResetToToday = () => {
+    setCurrentMonth(today.getMonth())
+    setCurrentYear(today.getFullYear())
+    setSelectedDay(today.getDate())
   }
 
   const getEventsForDay = (day: number) => {
@@ -182,7 +230,7 @@ export default function EventsPage() {
       cells.push({
         day: prevMonthDays - i,
         isCurrentMonth: false,
-        monthOffset: -1
+        monthOffset: -1,
       })
     }
 
@@ -191,7 +239,7 @@ export default function EventsPage() {
       cells.push({
         day: d,
         isCurrentMonth: true,
-        monthOffset: 0
+        monthOffset: 0,
       })
     }
 
@@ -202,7 +250,7 @@ export default function EventsPage() {
       cells.push({
         day: d,
         isCurrentMonth: false,
-        monthOffset: 1
+        monthOffset: 1,
       })
     }
 
@@ -210,47 +258,47 @@ export default function EventsPage() {
   }, [currentMonth, currentYear])
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Ambient glows - visible in dark, very subtle in light */}
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      {/* Ambient background glows */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 left-1/4 h-[600px] w-[600px] rounded-full bg-cyan-500/5 blur-[120px] dark:bg-cyan-500/8" />
         <div className="absolute top-60 right-1/4 h-[400px] w-[400px] rounded-full bg-violet-500/4 blur-[100px] dark:bg-violet-500/6" />
         <div className="absolute -bottom-20 left-1/3 h-[500px] w-[500px] rounded-full bg-emerald-500/4 blur-[120px] dark:bg-emerald-500/6" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-
-        {/* ── Hero ───────────────────────────────────────────────────── */}
-        <div className="mb-16 text-center">
-          {/* Label pill */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/8 px-4 py-1.5">
-            <Calendar className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400">
-              Community Calendar
+      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        {/* ── Hero Section ───────────────────────────────────────────── */}
+        <div className="mb-12 text-center sm:mb-16">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 shadow-sm">
+            <Sparkles className="h-4 w-4 text-cyan-500" />
+            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              OpenBox Events & Gatherings
             </span>
           </div>
 
-          <h1 className="mb-6 text-6xl font-extrabold tracking-tight text-foreground sm:text-7xl lg:text-8xl">
-            Events
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+            Community Calendar
           </h1>
 
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Workshops, tournaments, build nights, and community gatherings across all Open Box servers. Real humans, real fun.
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Workshops, gaming sessions, build labs, and community hangouts across all OpenBox servers.
           </p>
 
-          {/* Stats row */}
+          {/* Stats Bar */}
           {totalEvents > 0 && (
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               {[
-                { icon: Zap, label: `${totalEvents} events`, sub: 'scheduled' },
-                { icon: Wifi, label: `${onlineEvents} online`, sub: 'from anywhere' },
-                { icon: Globe, label: `${offlineEvents} offline`, sub: 'in person' },
+                { icon: Zap, label: `${totalEvents} Events`, sub: 'Scheduled' },
+                { icon: Wifi, label: `${onlineEvents} Online`, sub: 'Virtual Calls' },
+                { icon: Globe, label: `${offlineEvents} Offline`, sub: 'In Person' },
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="flex items-center gap-2.5 rounded-xl border border-border bg-muted/40 px-4 py-2.5"
+                  className="flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-2.5 shadow-sm"
                 >
-                  <stat.icon className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
+                  <div className="rounded-lg bg-cyan-500/10 p-2 text-cyan-600 dark:text-cyan-400">
+                    <stat.icon className="h-4 w-4" />
+                  </div>
                   <div className="text-left">
                     <p className="text-sm font-bold text-foreground">{stat.label}</p>
                     <p className="text-[11px] text-muted-foreground">{stat.sub}</p>
@@ -261,20 +309,23 @@ export default function EventsPage() {
           )}
         </div>
 
-        {/* ── Filters and View Toggle ─────────────────────────────────── */}
-        <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between border-b border-border/60 pb-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        {/* ── Controls, Filters & Mode Switcher ─────────────────────── */}
+        <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-border bg-surface p-4 shadow-sm sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+          {/* Server & Type Filter Buttons */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap">
             <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-muted-foreground/50" />
-              <div className="flex flex-wrap gap-2">
+              <Filter className="h-4 w-4 text-muted-foreground" />
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Server:</span>
+              <div className="flex flex-wrap gap-1.5">
                 {serverFilters.map((server) => (
                   <button
                     key={server}
                     onClick={() => setFilterServer(server)}
-                    className={`rounded-lg px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 min-h-[44px] ${filterServer === server
-                      ? 'bg-foreground text-background shadow-sm'
-                      : 'border border-border bg-muted/40 text-muted-foreground hover:border-border/80 hover:bg-muted/70 hover:text-foreground'
-                      }`}
+                    className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all min-h-[36px] ${
+                      filterServer === server
+                        ? 'bg-foreground text-background shadow-sm'
+                        : 'border border-border bg-background text-muted-foreground hover:bg-muted/60 hover:text-foreground'
+                    }`}
                   >
                     {server}
                   </button>
@@ -282,71 +333,88 @@ export default function EventsPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {typeFilters.map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setFilterType(type)}
-                  className={`rounded-lg px-3.5 py-1.5 text-sm font-semibold capitalize transition-all duration-200 min-h-[44px] ${filterType === type
-                    ? 'bg-foreground text-background shadow-sm'
-                    : 'border border-border bg-muted/40 text-muted-foreground hover:border-border/80 hover:bg-muted/70 hover:text-foreground'
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Format:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {typeFilters.map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setFilterType(type)}
+                    className={`rounded-lg px-3 py-1.5 text-xs font-semibold capitalize transition-all min-h-[36px] ${
+                      filterType === type
+                        ? 'bg-foreground text-background shadow-sm'
+                        : 'border border-border bg-background text-muted-foreground hover:bg-muted/60 hover:text-foreground'
                     }`}
-                >
-                  {type}
-                </button>
-              ))}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* View Mode Switcher */}
-          <div className="flex bg-muted/40 p-1 rounded-xl border border-border self-start lg:self-auto">
+          <div className="flex items-center gap-1 rounded-xl border border-border bg-background p-1 self-stretch sm:self-auto justify-stretch">
             <button
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 min-h-[44px] ${viewMode === 'list'
-                ? 'bg-foreground text-background shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-                }`}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-xs font-semibold transition-all min-h-[38px] ${
+                viewMode === 'list'
+                  ? 'bg-foreground text-background shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              <List className="h-4 w-4" />
               List View
             </button>
             <button
               onClick={() => setViewMode('calendar')}
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 min-h-[44px] ${viewMode === 'calendar'
-                ? 'bg-foreground text-background shadow-sm'
-                : 'text-muted-foreground hover:text-foreground'
-                }`}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-xs font-semibold transition-all min-h-[38px] ${
+                viewMode === 'calendar'
+                  ? 'bg-foreground text-background shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
-              <Calendar className="h-4 w-4" />
+              <CalendarIcon className="h-4 w-4" />
               Calendar View
             </button>
           </div>
         </div>
 
-        {/* Result count */}
-        <p className="mb-6 text-sm text-muted-foreground/60">
-          {filteredEvents.length === 0
-            ? 'No events match'
-            : `${filteredEvents.length} event${filteredEvents.length !== 1 ? 's' : ''}`}
-        </p>
+        {/* Results Counter */}
+        <div className="mb-6 flex items-center justify-between text-xs text-muted-foreground">
+          <span>
+            Showing <strong className="text-foreground">{filteredEvents.length}</strong> {filteredEvents.length === 1 ? 'event' : 'events'}
+          </span>
+          {filterServer !== 'All' || filterType !== 'all' ? (
+            <button
+              onClick={() => {
+                setFilterServer('All')
+                setFilterType('all')
+              }}
+              className="text-cyan-600 dark:text-cyan-400 hover:underline font-medium"
+            >
+              Reset filters
+            </button>
+          ) : null}
+        </div>
 
-        {/* ── Content Panes ───────────────────────────────────────────── */}
+        {/* ── Main View Container ────────────────────────────────────── */}
         {viewMode === 'list' ? (
-          /* List View */
+          /* ========================================================= */
+          /* LIST VIEW                                                 */
+          /* ========================================================= */
           filteredEvents.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-muted/20 py-24 text-center">
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-muted/40">
-                <CalendarClock className="h-8 w-8 text-muted-foreground/40" />
+            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-surface py-20 text-center">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-background">
+                <CalendarClock className="h-7 w-7 text-muted-foreground" />
               </div>
-              <h2 className="mb-2 text-2xl font-bold text-foreground/70">Coming soon</h2>
-              <p className="max-w-sm text-sm text-muted-foreground">
-                No events match this filter yet. New sessions will appear here once the calendar is updated.{' '}
+              <h2 className="mb-2 text-xl font-bold text-foreground">No events found</h2>
+              <p className="max-w-sm text-xs text-muted-foreground">
+                No scheduled events match your selected filters. Try switching filters or check back later!
               </p>
             </div>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filteredEvents.map((event, index) => {
                 const supporters = getEventSupporters(event)
                 const dateBadge = getShortDate(event.date)
@@ -357,23 +425,20 @@ export default function EventsPage() {
                   <Link
                     key={event.id}
                     href={`/events/${event.id}`}
-                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${shadowClass} animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both`}
-                    style={{ animationDelay: `${80 + index * 50}ms` }}
+                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${shadowClass}`}
                   >
-                    {/* Top gradient accent bar */}
-                    <div
-                      className={`h-0.5 w-full bg-gradient-to-r ${accent} opacity-70 transition-opacity duration-300 group-hover:opacity-100`}
-                    />
+                    {/* Top gradient accent line */}
+                    <div className={`h-1 w-full bg-gradient-to-r ${accent}`} />
 
-                    {/* Top strip - always rendered for visual consistency */}
-                    <div className="flex items-center gap-3 border-b border-border px-5 py-3">
+                    {/* Supporter Header Strip */}
+                    <div className="flex items-center gap-2.5 border-b border-border/80 px-5 py-3">
                       {supporters.length > 0 ? (
                         <>
                           <div className="flex shrink-0 -space-x-1.5">
                             {supporters.slice(0, 3).map((s) => (
                               <span
                                 key={s.name}
-                                className="flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background"
+                                className="flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background shadow-xs"
                                 title={s.name}
                               >
                                 <span className="relative h-3.5 w-3.5 shrink-0 block">
@@ -388,81 +453,73 @@ export default function EventsPage() {
                               </span>
                             ))}
                           </div>
-                          <HeartHandshake className="h-3.5 w-3.5 shrink-0 text-yellow-500 dark:text-yellow-400" />
+                          <HeartHandshake className="h-3.5 w-3.5 shrink-0 text-amber-500" />
                           <p className="min-w-0 truncate text-xs text-muted-foreground">
                             {getSupportStripText(supporters)}
                           </p>
                         </>
                       ) : (
-                        <p className="text-xs text-muted-foreground/40">Community Event</p>
+                        <p className="text-xs text-muted-foreground/60">Community Event</p>
                       )}
                     </div>
 
                     <div className="flex flex-1 flex-col p-5">
-                      {/* Date + Title */}
+                      {/* Date Widget + Title */}
                       <div className="mb-4 flex items-start gap-4">
-                        {/* Calendar widget */}
-                        <div className="flex shrink-0 flex-col items-center overflow-hidden rounded-xl border border-border bg-background shadow-sm">
+                        <div className="flex shrink-0 flex-col items-center overflow-hidden rounded-xl border border-border bg-background shadow-xs">
                           <div className={`w-full bg-gradient-to-r ${accent} px-3 py-0.5 text-center`}>
-                            <span className="text-[9px] font-bold uppercase tracking-widest text-black/70">
+                            <span className="text-[9px] font-bold uppercase tracking-widest text-black/75">
                               {dateBadge.month}
                             </span>
                           </div>
-                          <div className="px-4 py-2 text-center">
-                            <span className="block text-2xl font-extrabold leading-none text-foreground">
+                          <div className="px-3.5 py-1.5 text-center">
+                            <span className="block text-xl font-extrabold leading-none text-foreground">
                               {dateBadge.day}
                             </span>
-                            <span className="mt-0.5 block text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                            <span className="mt-0.5 block text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                               {dateBadge.weekday}
                             </span>
                           </div>
                         </div>
 
                         <div className="min-w-0 flex-1">
-                          <h2 className="mb-1 text-lg font-bold leading-tight text-foreground">
+                          <h2 className="mb-1 text-base font-bold leading-snug text-foreground group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                             {event.name}
                           </h2>
                           <p className="text-xs text-muted-foreground">
-                            {mounted ? formatDate(event.date) : <span className="opacity-0">–</span>}
+                            {mounted ? formatDate(event.date) : <span>Loading...</span>}
                           </p>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="mb-5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                      <p className="mb-5 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
                         {event.description}
                       </p>
 
-                      {/* Meta */}
-                      <div className="mt-auto space-y-2">
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
-                          <MapPin className="h-3.5 w-3.5 shrink-0" />
+                      {/* Meta Pills */}
+                      <div className="mt-auto space-y-2 pt-2 border-t border-border/60">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <MapPin className="h-3.5 w-3.5 shrink-0 text-cyan-500" />
                           <span className="truncate">{event.location}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
-                          <Ticket className="h-3.5 w-3.5 shrink-0" />
-                          <span>
-                            {event.ticketStatus === 'free' ? 'Free to join' : `Paid · ${event.price}`}
-                          </span>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Ticket className="h-3.5 w-3.5 shrink-0 text-cyan-500" />
+                          <span>{event.ticketStatus === 'free' ? 'Free to join' : `Paid · ${event.price}`}</span>
                         </div>
                       </div>
 
-                      {/* Footer */}
-                      <div className="mt-4 flex items-center justify-between gap-3">
+                      {/* Footer Actions */}
+                      <div className="mt-4 flex items-center justify-between gap-2 pt-3">
                         <div className="flex flex-wrap gap-1.5">
-                          <span className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                          <span className={`rounded-md border px-2 py-0.5 text-[10px] font-bold ${getServerBadgeClass(event.server)}`}>
                             {event.server}
                           </span>
-                          <span className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                          <span className="rounded-md border border-border bg-background px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
                             {event.isOffline ? 'Offline' : 'Online'}
                           </span>
-                          {event.ticketStatus === 'free' && (
-                            <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-                              Free
-                            </span>
-                          )}
                         </div>
-                        <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-muted-foreground transition-all group-hover:gap-1.5 group-hover:text-foreground">
+                        <span className="flex items-center gap-1 text-xs font-semibold text-foreground">
                           Details
                           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                         </span>
@@ -474,42 +531,51 @@ export default function EventsPage() {
             </div>
           )
         ) : (
-          /* Calendar View */
-          <div className="space-y-6">
-            {/* Calendar Controls */}
-            <div className="flex items-center justify-between mb-6 bg-card p-4 rounded-2xl border border-border">
+          /* ========================================================= */
+          /* CALENDAR VIEW (Responsive Mobile & Wide Screens)           */
+          /* ========================================================= */
+          <div className="space-y-8">
+            {/* Calendar Controls Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface p-4 shadow-sm">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePrevMonth}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-background text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-all"
+                  aria-label="Previous Month"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={handleNextMonth}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-background text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-all"
+                  aria-label="Next Month"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+                <h2 className="ml-2 text-lg font-bold text-foreground sm:text-xl">
+                  {MONTH_NAMES[currentMonth]} {currentYear}
+                </h2>
+              </div>
+
               <button
-                onClick={handlePrevMonth}
-                className="flex items-center justify-center p-2 rounded-xl border border-border bg-muted/40 hover:bg-muted/70 text-muted-foreground hover:text-foreground transition-all duration-200 min-h-[44px] min-w-[44px]"
-                aria-label="Previous Month"
+                onClick={handleResetToToday}
+                className="rounded-xl border border-border bg-background px-3.5 py-2 text-xs font-semibold text-muted-foreground hover:bg-muted/60 hover:text-foreground transition-all min-h-[38px]"
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                {MONTH_NAMES[currentMonth]} {currentYear}
-              </h2>
-              <button
-                onClick={handleNextMonth}
-                className="flex items-center justify-center p-2 rounded-xl border border-border bg-muted/40 hover:bg-muted/70 text-muted-foreground hover:text-foreground transition-all duration-200 min-h-[44px] min-w-[44px]"
-                aria-label="Next Month"
-              >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
+                Go to Today
               </button>
             </div>
 
             {/* Days of Week Header */}
-            <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-2 text-center text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
-                <div key={d} className="py-2">{d}</div>
+            <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground sm:gap-2">
+              {DAYS_OF_WEEK.map((d) => (
+                <div key={d} className="py-1">
+                  {d}
+                </div>
               ))}
             </div>
 
-            {/* Calendar Grid */}
-            <div className="grid grid-cols-7 gap-1 sm:gap-2 bg-muted/20 p-2 sm:p-4 rounded-3xl border border-border">
+            {/* Monthly Days Grid */}
+            <div className="grid grid-cols-7 gap-1 rounded-2xl border border-border bg-surface p-2 sm:gap-2 sm:p-4 shadow-sm">
               {calendarCells.map((cell, idx) => {
                 const isCurrent = cell.isCurrentMonth
                 const dayNum = cell.day
@@ -517,9 +583,9 @@ export default function EventsPage() {
                 const hasEvents = cellEvents.length > 0
 
                 const isToday =
-                  new Date().getDate() === dayNum &&
-                  new Date().getMonth() === currentMonth &&
-                  new Date().getFullYear() === currentYear &&
+                  today.getDate() === dayNum &&
+                  today.getMonth() === currentMonth &&
+                  today.getFullYear() === currentYear &&
                   isCurrent
 
                 const isSelected = selectedDay === dayNum && isCurrent
@@ -531,7 +597,6 @@ export default function EventsPage() {
                       if (isCurrent) {
                         setSelectedDay(dayNum)
                       } else {
-                        // Handle clicking adjacent month days to navigate directly
                         if (cell.monthOffset === -1) {
                           handlePrevMonth()
                           setSelectedDay(dayNum)
@@ -541,55 +606,76 @@ export default function EventsPage() {
                         }
                       }
                     }}
-                    className={`group relative flex flex-col min-h-[70px] sm:min-h-[100px] p-1.5 sm:p-2.5 rounded-2xl border transition-all duration-200 text-left ${isCurrent
+                    className={`group relative flex flex-col justify-between rounded-xl border transition-all duration-200 text-left aspect-square sm:aspect-auto sm:min-h-[105px] p-1.5 sm:p-2.5 ${
+                      isCurrent
                         ? isSelected
-                          ? 'bg-muted/80 border-cyan-500'
-                          : 'bg-card border-border hover:border-muted-foreground/30'
-                        : 'bg-muted/10 border-border/30 text-muted-foreground/40'
-                      } ${isToday ? 'ring-2 ring-cyan-500' : ''}`}
+                          ? 'border-cyan-500 bg-cyan-500/10 dark:bg-cyan-500/15 shadow-sm'
+                          : 'border-border/60 bg-background hover:border-cyan-500/40 hover:bg-muted/40'
+                        : 'border-transparent bg-transparent text-muted-foreground/30'
+                    } ${isToday ? 'ring-2 ring-cyan-500' : ''}`}
                   >
-                    <span className={`text-xs sm:text-sm font-bold ${isToday
-                        ? 'bg-cyan-500 text-white rounded-full h-5 w-5 sm:h-6 sm:w-6 flex items-center justify-center font-extrabold'
-                        : isCurrent
-                          ? isSelected
-                            ? 'text-cyan-600 dark:text-cyan-400 font-extrabold'
-                            : 'text-foreground'
-                          : 'text-muted-foreground/30'
-                      }`}>
-                      {dayNum}
-                    </span>
+                    {/* Top Row: Day Number & Event Count Badge */}
+                    <div className="flex items-center justify-between w-full">
+                      <span
+                        className={`text-xs font-bold sm:text-sm ${
+                          isToday
+                            ? 'flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500 text-white font-extrabold sm:h-6 sm:w-6'
+                            : isCurrent
+                            ? isSelected
+                              ? 'font-extrabold text-cyan-600 dark:text-cyan-400'
+                              : 'text-foreground'
+                            : 'text-muted-foreground/30'
+                        }`}
+                      >
+                        {dayNum}
+                      </span>
 
-                    {/* Dots for Mobile, Event bars for Desktop */}
-                    <div className="mt-1 sm:mt-2 w-full flex-1 flex flex-col justify-end">
+                      {/* Mobile Event Count Pill */}
+                      {hasEvents && (
+                        <span className="flex sm:hidden items-center justify-center rounded-full bg-cyan-500 px-1.5 py-0.5 text-[9px] font-extrabold text-white">
+                          {cellEvents.length}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Events Display */}
+                    <div className="mt-1 w-full flex-1 flex flex-col justify-end">
                       {hasEvents && (
                         <>
-                          {/* Dots on mobile */}
-                          <div className="flex sm:hidden flex-wrap gap-0.5 mt-auto">
+                          {/* Mobile Dots Indicator */}
+                          <div className="flex sm:hidden flex-wrap items-center justify-center gap-1 mt-auto">
                             {cellEvents.map((ev) => (
                               <span
                                 key={ev.id}
-                                className={`h-1.5 w-1.5 rounded-full ${ev.server === 'Dev' ? 'bg-emerald-500' :
-                                    ev.server === 'GG' ? 'bg-rose-500' :
-                                      'bg-zinc-500 dark:bg-zinc-300'
-                                  }`}
+                                className={`h-2 w-2 rounded-full shadow-xs ${
+                                  ev.server === 'Dev'
+                                    ? 'bg-emerald-500'
+                                    : ev.server === 'GG'
+                                    ? 'bg-rose-500'
+                                    : 'bg-cyan-500'
+                                }`}
                               />
                             ))}
                           </div>
 
-                          {/* Labels on desktop */}
+                          {/* Desktop Event Title Chips */}
                           <div className="hidden sm:flex flex-col gap-1 w-full mt-1">
-                            {cellEvents.map((ev) => (
+                            {cellEvents.slice(0, 3).map((ev) => (
                               <span
                                 key={ev.id}
-                                className={`px-1.5 py-0.5 rounded text-[10px] font-bold truncate block border ${ev.server === 'Dev' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400' :
-                                    ev.server === 'GG' ? 'bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400' :
-                                      'bg-zinc-500/10 border-zinc-500/30 text-zinc-700 dark:text-zinc-300'
-                                  }`}
+                                className={`px-2 py-1 rounded-md text-[10px] font-bold truncate block border shadow-2xs ${getServerBadgeClass(
+                                  ev.server
+                                )}`}
                                 title={ev.name}
                               >
                                 {ev.name}
                               </span>
                             ))}
+                            {cellEvents.length > 3 && (
+                              <span className="text-[9px] font-semibold text-muted-foreground pl-1">
+                                +{cellEvents.length - 3} more
+                              </span>
+                            )}
                           </div>
                         </>
                       )}
@@ -599,39 +685,57 @@ export default function EventsPage() {
               })}
             </div>
 
-            {/* Selected Day's Events List */}
+            {/* ── Selected Day Events Panel ───────────────────────────── */}
             {selectedDay !== null && (
-              <div className="mt-8 border border-border bg-card p-6 rounded-3xl animate-in fade-in duration-300">
-                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-cyan-500" />
-                  Events on {MONTH_NAMES[currentMonth]} {selectedDay}, {currentYear}
-                </h3>
+              <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6 shadow-sm transition-all">
+                <div className="flex items-center justify-between mb-4 border-b border-border/80 pb-3">
+                  <h3 className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
+                    <CalendarIcon className="h-5 w-5 text-cyan-500" />
+                    Events for {MONTH_NAMES[currentMonth]} {selectedDay}, {currentYear}
+                  </h3>
+                  <span className="text-xs font-semibold text-muted-foreground bg-background px-2.5 py-1 rounded-lg border border-border">
+                    {getEventsForDay(selectedDay).length} scheduled
+                  </span>
+                </div>
 
                 {getEventsForDay(selectedDay).length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No events scheduled for this day.</p>
+                  <p className="py-4 text-xs text-muted-foreground text-center">
+                    No events scheduled for this day. Select another date or browse in List View!
+                  </p>
                 ) : (
                   <div className="grid gap-4 sm:grid-cols-2">
                     {getEventsForDay(selectedDay).map((event) => (
                       <Link
                         key={event.id}
                         href={`/events/${event.id}`}
-                        className="flex items-center justify-between p-4 rounded-2xl border border-border hover:border-cyan-500/40 bg-muted/20 transition-all duration-200 min-h-[44px]"
+                        className="group flex flex-col justify-between rounded-xl border border-border bg-background p-4 shadow-2xs transition-all hover:border-cyan-500/50 hover:shadow-md"
                       >
-                        <div className="min-w-0 flex-1 pr-2">
-                          <h4 className="font-bold text-sm truncate text-foreground">{event.name}</h4>
-                          <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2 flex-wrap">
-                            <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold ${event.server === 'Dev' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' :
-                                event.server === 'GG' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' :
-                                  'bg-zinc-500/10 text-zinc-700 dark:text-zinc-300'
-                              }`}>
+                        <div>
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <span className={`rounded-md border px-2 py-0.5 text-[10px] font-bold ${getServerBadgeClass(event.server)}`}>
                               {event.server}
                             </span>
-                            <span>{formatDate(event.date)}</span>
+                            <span className="text-[11px] font-medium text-muted-foreground">
+                              {event.isOffline ? 'Offline' : 'Online'}
+                            </span>
                           </div>
+
+                          <h4 className="font-bold text-sm text-foreground group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                            {event.name}
+                          </h4>
+
+                          <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                            {event.description}
+                          </p>
                         </div>
-                        <div className="flex shrink-0 items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground">
-                          View
-                          <ArrowRight className="h-4 w-4" />
+
+                        <div className="mt-4 flex items-center justify-between pt-3 border-t border-border/60 text-xs">
+                          <span className="text-muted-foreground font-medium">
+                            {mounted ? formatDate(event.date) : 'Loading...'}
+                          </span>
+                          <span className="flex items-center gap-1 font-semibold text-foreground group-hover:text-cyan-500">
+                            Details <ArrowRight className="h-3.5 w-3.5" />
+                          </span>
                         </div>
                       </Link>
                     ))}
@@ -642,19 +746,21 @@ export default function EventsPage() {
           </div>
         )}
 
-        {/* ── Bottom CTA ──────────────────────────────────────────────── */}
-        <div className="mt-20 flex flex-col items-center gap-4 text-center">
-          <div className="flex items-center gap-2 text-muted-foreground/60">
-            <Users className="h-4 w-4" />
-            <span className="text-sm">Have an event idea?</span>
+        {/* ── Bottom Suggestion CTA ──────────────────────────────────── */}
+        <div className="mt-16 text-center pt-8 border-t border-border/60">
+          <div className="inline-flex flex-col items-center gap-3">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <Users className="h-4 w-4 text-cyan-500" />
+              <span>Want to host or suggest an event?</span>
+            </div>
+            <Link
+              href="/help#suggestion-box"
+              className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-5 py-2.5 text-xs font-bold text-foreground shadow-xs transition-all hover:border-cyan-500/40 hover:bg-muted/40"
+            >
+              Suggest an event idea
+              <ArrowRight className="h-4 w-4 text-cyan-500" />
+            </Link>
           </div>
-          <Link
-            href="/help#suggestion-box"
-            className="group inline-flex items-center gap-2 rounded-xl border border-border bg-muted/40 px-5 py-2.5 text-sm font-semibold text-muted-foreground transition-all hover:bg-muted/70 hover:text-foreground"
-          >
-            Suggest an event
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
         </div>
       </div>
     </div>
