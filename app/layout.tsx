@@ -137,7 +137,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="#050505" />
         <meta name="msvalidate.01" content="E7F02EAA1582F97200DE2848358DE313" />
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6088953454914497"
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
         {/* Google Tag Manager */}
         <Script id="gtm-head" strategy="lazyOnload">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
