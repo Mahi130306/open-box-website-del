@@ -1,37 +1,10 @@
 /// <reference types="node" />
 import { NextResponse } from 'next/server'
+import sitemap from '@/app/sitemap'
 
 const BASE_URL = 'https://openboxcomm.in'
-const INDEXNOW_KEY = 'a63d11d22e28485ea9e0da8f7fa62387'
+const INDEXNOW_KEY = 'eefb2bed56144c93aa1eba6a9e5d9a98'
 const KEY_LOCATION = `${BASE_URL}/${INDEXNOW_KEY}.txt`
-
-// All URLs to submit — keep in sync with app/sitemap.ts
-const URLS = [
-  `${BASE_URL}/`,
-  `${BASE_URL}/about`,
-  `${BASE_URL}/servers`,
-  `${BASE_URL}/servers/jn`,
-  `${BASE_URL}/servers/dev`,
-  `${BASE_URL}/servers/gg`,
-  `${BASE_URL}/events`,
-  `${BASE_URL}/blogs`,
-  `${BASE_URL}/doc`,
-  `${BASE_URL}/doc/rules`,
-  `${BASE_URL}/doc/jn`,
-  `${BASE_URL}/doc/dev`,
-  `${BASE_URL}/doc/gg`,
-  `${BASE_URL}/contact-us`,
-  `${BASE_URL}/legal/community-rules`,
-  `${BASE_URL}/legal/refund-policy`,
-  `${BASE_URL}/legal/dmca-policy`,
-  `${BASE_URL}/legal/acceptable-use-policy`,
-  `${BASE_URL}/legal/event-policy`,
-  `${BASE_URL}/legal/terms-and-conditions`,
-  `${BASE_URL}/legal/privacy-policy`,
-  `${BASE_URL}/legal/cookie-policy`,
-  `${BASE_URL}/support`,
-  `${BASE_URL}/help`,
-]
 
 // IndexNow batch submission endpoints (Bing + Yandex both use the same protocol)
 const INDEXNOW_ENDPOINTS = [
@@ -39,7 +12,17 @@ const INDEXNOW_ENDPOINTS = [
   'https://www.bing.com/indexnow',
 ]
 
-async function submitToEndpoint(endpoint: string) {
+async function getSitemapUrls(): Promise<string[]> {
+  try {
+    const resolvedSitemap = await sitemap()
+    return resolvedSitemap.map((item) => item.url)
+  } catch (error) {
+    console.error('Failed to resolve sitemap URLs:', error)
+    return []
+  }
+}
+
+async function submitToEndpoint(endpoint: string, urls: string[]) {
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -47,7 +30,7 @@ async function submitToEndpoint(endpoint: string) {
       host: 'openboxcomm.in',
       key: INDEXNOW_KEY,
       keyLocation: KEY_LOCATION,
-      urlList: URLS,
+      urlList: urls,
     }),
   })
   return { endpoint, status: res.status, ok: res.ok }
@@ -75,13 +58,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const results = await Promise.all(INDEXNOW_ENDPOINTS.map(submitToEndpoint))
+    const urls = await getSitemapUrls()
+    const results = await Promise.all(INDEXNOW_ENDPOINTS.map((endpoint) => submitToEndpoint(endpoint, urls)))
     const allOk = results.every((r) => r.ok || r.status === 202)
 
     return NextResponse.json(
       {
         success: allOk,
-        submitted: URLS.length,
+        submitted: urls.length,
         results: results.map((r) => ({ endpoint: r.endpoint, status: r.status })),
       },
       { status: allOk ? 200 : 207 }
@@ -99,11 +83,20 @@ export async function POST(request: Request) {
  * Returns current submission config for debugging (no sensitive data).
  */
 export async function GET() {
-  return NextResponse.json({
-    key: INDEXNOW_KEY,
-    keyLocation: KEY_LOCATION,
-    urlCount: URLS.length,
-    endpoints: INDEXNOW_ENDPOINTS,
-    urls: URLS,
-  })
+  try {
+    const urls = await getSitemapUrls()
+    return NextResponse.json({
+      key: INDEXNOW_KEY,
+      keyLocation: KEY_LOCATION,
+      urlCount: urls.length,
+      endpoints: INDEXNOW_ENDPOINTS,
+      urls: urls,
+    })
+  } catch (err) {
+    return NextResponse.json(
+      { error: 'Failed to retrieve current configuration', detail: String(err) },
+      { status: 500 }
+    )
+  }
 }
+

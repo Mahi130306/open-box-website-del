@@ -194,8 +194,21 @@ Prevents duplicate content issues and consolidates link equity.
 
 ### Sitemap & Robots.txt
 
-- **Sitemap:** `/public/sitemap.xml` (updated in `app/sitemap.ts`)
+- **Sitemap:** `/public/sitemap.xml` (static, also defined in `app/sitemap.ts`)
 - **Robots.txt:** `/public/robots.txt`
+
+### IndexNow Integration
+
+IndexNow is supported to instantly notify search engines (such as Bing and Yandex) whenever content is updated.
+
+- **Verification File:** `/eefb2bed56144c93aa1eba6a9e5d9a98.txt` (located at `public/eefb2bed56144c93aa1eba6a9e5d9a98.txt`).
+- **Submission Endpoint:** `/api/indexnow` (accessible via POST).
+- **Triggering Submission:**
+  You can trigger URL submissions to IndexNow by sending a POST request to `/api/indexnow`. If the `INDEXNOW_SECRET` environment variable is defined, you must provide it in the header:
+  ```bash
+  curl -X POST https://openboxcomm.in/api/indexnow \
+    -H "x-indexnow-secret: YOUR_INDEXNOW_SECRET"
+  ```
 
 ---
 

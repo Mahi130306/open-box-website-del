@@ -96,7 +96,7 @@ const nextConfig = {
       },
       // Ensure IndexNow key file is served as plain text
       {
-        source: '/a63d11d22e28485ea9e0da8f7fa62387.txt',
+        source: '/eefb2bed56144c93aa1eba6a9e5d9a98.txt',
         headers: [{ key: 'Content-Type', value: 'text/plain' }],
       },
       // Ensure llms.txt is served as plain text
