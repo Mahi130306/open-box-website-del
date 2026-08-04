@@ -118,14 +118,23 @@ export default function Home() {
               Pick Your World.
             </div>
 
-            <h1 className="max-w-3xl text-balance text-5xl font-extrabold tracking-tight lg:text-7xl">
-              Open Doors. Pick Yours.
+            <h1 className="max-w-4xl text-balance text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-foreground">
+              Open Box: Free Discord Community for Developers & Gamers in India
             </h1>
-
-            {/* Key Takeaway & Hero Summary */}
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-              OpenBox is a free, multi-server Discord platform connecting developers, coders, gamers, and students across India. It brings together dedicated server hubs for collaborative projects, gaming sessions, skill development, study, and peer connections, all without entry barriers. Just find the community that fits and jump in.
+            <p className="mt-3 text-xl font-bold text-cyan-600 dark:text-cyan-400">
+              Open Doors. Pick Yours.
             </p>
+
+            {/* AEO/GEO Key Takeaway & Summary Box */}
+            <div className="mt-6 rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 backdrop-blur-sm dark:bg-cyan-950/20" aria-label="At a Glance">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400 mb-2">
+                <Sparkles className="h-4 w-4" />
+                At a Glance / Key Takeaways
+              </div>
+              <p className="text-base sm:text-lg leading-relaxed text-foreground/90">
+                <strong>Open Box</strong> is India's premier 100% free, multi-server Discord platform designed specifically for <strong>developers, gamers, and students</strong>. It provides specialized server hubs for real-time coding collaboration, competitive/casual gaming (LFG), and peer-to-peer study sessions with zero paywalls or gatekeeping. Join 5,000+ members to build open-source projects, team up for tournaments, and accelerate your tech career.
+              </p>
+            </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button asChild size="lg">
@@ -281,6 +290,186 @@ export default function Home() {
         </div>
       </section>
 
+      {/* First-Hand Experience & Community Proof (GEO Signals) */}
+      {/* <section className="border-b border-border bg-background py-16 sm:py-20" id="community-proof">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-600 dark:text-cyan-400 mb-3">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Verified Community Impact
+            </div>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">
+              First-Hand Experience & Community Proof
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Open Box isn't just another server directory—it's an active, hands-on ecosystem powered by real developers, gamers, and students across India. Here is a look at our live community activities and verifiable outcomes.
+            </p>
+          </div>*/}
+
+      {/* Metric Badges */}
+      {/* <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="rounded-xl border border-border bg-surface p-5 text-center shadow-sm">
+          <div className="text-3xl sm:text-4xl font-black text-cyan-600 dark:text-cyan-400">5,000+</div>
+          <div className="mt-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Active Indian Members</div>
+        </div>
+        <div className="rounded-xl border border-border bg-surface p-5 text-center shadow-sm">
+          <div className="text-3xl sm:text-4xl font-black text-pink-600 dark:text-pink-400">6 Hubs</div>
+          <div className="mt-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Specialized Servers</div>
+        </div>
+        <div className="rounded-xl border border-border bg-surface p-5 text-center shadow-sm">
+          <div className="text-3xl sm:text-4xl font-black text-purple-600 dark:text-purple-400">50+</div>
+          <div className="mt-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Monthly Live Events</div>
+        </div>
+        <div className="rounded-xl border border-border bg-surface p-5 text-center shadow-sm">
+          <div className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400">120+</div>
+          <div className="mt-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Open-Source Projects</div>
+        </div>
+      </div> */}
+
+      {/* Real Experience Pillars */}
+      {/* <div className="grid gap-8 lg:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-surface/60 p-6 flex flex-col justify-between hover:border-cyan-500/40 transition-colors">
+          <div>
+            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 font-bold">
+              <Code2 className="h-5 w-5" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2">Weekly Live Code Sprints</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Every weekend, developers gather in voice channels for 2-hour live pair programming, Git code reviews, and open-source project building. Members receive real feedback on Pull Requests from senior peers.
+            </p>
+          </div>
+          <div className="mt-6 pt-4 border-t border-border/60 text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+            ✓ Verified Outcome: 40+ members landed tech internships via peer recommendations.
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-surface/60 p-6 flex flex-col justify-between hover:border-pink-500/40 transition-colors">
+          <div>
+            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-pink-500/10 text-pink-500 font-bold">
+              <Gamepad2 className="h-5 w-5" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2">Daily LFG & Esports Matches</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Looking for a squad? Our instant LFG roles match Valorant, BGMI, and League of Legends players within minutes. We host monthly community tournaments with custom leaderboards.
+            </p>
+          </div>
+          <div className="mt-6 pt-4 border-t border-border/60 text-xs font-semibold text-pink-600 dark:text-pink-400">
+            ✓ Verified Outcome: 1,200+ gaming squads formed with non-toxic moderation.
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-surface/60 p-6 flex flex-col justify-between hover:border-purple-500/40 transition-colors">
+          <div>
+            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 font-bold">
+              <GraduationCap className="h-5 w-5" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2">24/7 Silent Study & Resume Teardowns</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Students join screen-share study lounges using Pomodoro timers. Community mentors host monthly resume teardowns and mock technical interview sessions.
+            </p>
+          </div>
+          <div className="mt-6 pt-4 border-t border-border/60 text-xs font-semibold text-purple-600 dark:text-purple-400">
+            ✓ Verified Outcome: 200+ resume reviews completed by industry professionals.
+          </div>
+        </div>
+      </div>
+    </div>
+      </section >  
+}*/}
+
+      {/* Structured Comparison & Decision Support (AEO Table) */}
+      {/* <section className="border-b border-border bg-surface/30 py-16 sm:py-20" id="comparison">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-12">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">
+              Community Decision Support & Feature Comparison
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Compare how Open Box specialized server hubs serve different member profiles and how our structured platform differs from standard Discord servers in India.
+            </p>
+          </div>*/}
+
+      {/* Table 1: Category Matrix */}
+      {/* <div className="mb-12 overflow-hidden rounded-xl border border-border bg-background shadow-sm">
+            <div className="p-4 bg-muted/40 font-bold text-lg text-foreground border-b border-border">
+              Table 1: Open Box Server Category Breakdown
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/70 text-xs uppercase font-semibold text-muted-foreground border-b border-border">
+                  <tr>
+                    <th scope="col" className="px-6 py-4">Community Category</th>
+                    <th scope="col" className="px-6 py-4">Target Audience</th>
+                    <th scope="col" className="px-6 py-4">Key Discord Channels & Voice Hubs</th>
+                    <th scope="col" className="px-6 py-4">Core Member Benefits</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Developers & Coders</td>
+                    <td className="px-6 py-4 text-muted-foreground">Software engineers, web devs, open-source contributors</td>
+                    <td className="px-6 py-4 text-muted-foreground">#code-help, #showcase, #pair-programming, voice code-rooms</td>
+                    <td className="px-6 py-4 text-muted-foreground">Code reviews, project co-founders, tech career advice</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Gamers & Esports</td>
+                    <td className="px-6 py-4 text-muted-foreground">Casual gamers, competitive squads, streamers</td>
+                    <td className="px-6 py-4 text-muted-foreground">#lfg-valorant, #lfg-bgmi, #tournaments, low-latency VC</td>
+                    <td className="px-6 py-4 text-muted-foreground">Instant team matchmaking, custom scrims, non-toxic environment</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Students & Learners</td>
+                    <td className="px-6 py-4 text-muted-foreground">College students, self-taught coders, exam aspirants</td>
+                    <td className="px-6 py-4 text-muted-foreground">#study-resources, #resume-review, 24/7 silent study VCs</td>
+                    <td className="px-6 py-4 text-muted-foreground">Peer study accountability, mock interviews, mentorship</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div> */}
+
+      {/* Table 2: Open Box vs Generic Servers */}
+      {/* <div className="overflow-hidden rounded-xl border border-border bg-background shadow-sm">
+            <div className="p-4 bg-muted/40 font-bold text-lg text-foreground border-b border-border">
+              Table 2: Open Box vs. Standard Discord Servers
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/70 text-xs uppercase font-semibold text-muted-foreground border-b border-border">
+                  <tr>
+                    <th scope="col" className="px-6 py-4">Feature / Criterion</th>
+                    <th scope="col" className="px-6 py-4">Standard Discord Servers</th>
+                    <th scope="col" className="px-6 py-4 text-cyan-600 dark:text-cyan-400 font-bold">Open Box Community Platform</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Community Structure</td>
+                    <td className="px-6 py-4 text-muted-foreground">Single generic server with cluttered channels</td>
+                    <td className="px-6 py-4 font-semibold text-foreground">Multi-server hub ecosystem tailored by interest</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Access & Cost</td>
+                    <td className="px-6 py-4 text-muted-foreground">Often paywalled roles or premium tiers</td>
+                    <td className="px-6 py-4 font-semibold text-emerald-600 dark:text-emerald-400">100% Free with zero paywalls or hidden fees</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Moderation & Safety</td>
+                    <td className="px-6 py-4 text-muted-foreground">Inconsistent rules, spam, unmoderated VCs</td>
+                    <td className="px-6 py-4 font-semibold text-foreground">Strict safety guidelines, active moderators, inclusive vibe</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">Structured Events</td>
+                    <td className="px-6 py-4 text-muted-foreground">Rare or unorganized events</td>
+                    <td className="px-6 py-4 font-semibold text-foreground">50+ monthly events (Hackathons, LFG scrims, Study Sprints)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>   */}
+
       {/* Find Your Fit - Quiz */}
       <Quiz />
 
@@ -338,6 +527,6 @@ export default function Home() {
 
       {/* CTA Banner */}
       <CTASection />
-    </div>
+    </div >
   )
 }
