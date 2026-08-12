@@ -659,7 +659,7 @@ export interface ImportantNotice {
 }
 
 export const importantNotice: ImportantNotice = {
-  text: 'importent notice: we removed a bot named wick from the servers. 20-07-2026.',
+  text: 'important notice: we removed a bot named wick from the servers. 20-07-2026.',
   linkText: 'for more click.',
   linkUrl: '/blogs/why-we-removed-wick',
 }
