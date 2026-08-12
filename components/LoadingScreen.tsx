@@ -1,49 +1,23 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { logger } from '@/lib/logger'
+import { useTransitionState } from '@/components/RouteTransitionProvider'
 
 export function LoadingScreen() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFading, setIsFading] = useState(false)
-  const pathname = usePathname()
+  const { state } = useTransitionState()
 
-  // Initial page load
-  useEffect(() => {
-    logger.info('App initialised', { route: pathname })
-    const timer = setTimeout(() => {
-      setIsFading(true)
-      setTimeout(() => setIsLoading(false), 400)
-    }, 800)
-    return () => clearTimeout(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // The loader is visible only during CURRENT_LOADER state
+  const isVisible = state === 'CURRENT_LOADER'
 
-  // Route changes
-  useEffect(() => {
-    setIsLoading(true)
-    setIsFading(false)
-    logger.info('Navigating to', { route: pathname })
-    const timer = setTimeout(() => {
-      setIsFading(true)
-      setTimeout(() => setIsLoading(false), 400)
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [pathname])
-
-  if (!isLoading) return null
+  if (!isVisible) return null
 
   return (
     <div
       className="fixed inset-0 z-[100000] flex flex-col items-center justify-center bg-background"
       style={{
-        opacity: isFading ? 0 : 1,
+        opacity: 1,
         transition: 'opacity 0.4s ease',
-        pointerEvents: isFading ? 'none' : 'all',
       }}
-      aria-hidden={isFading}
     >
       {/* Scanline texture, CLI feel */}
       <div
@@ -56,10 +30,7 @@ export function LoadingScreen() {
 
       {/* Glow ring behind the gif */}
       <div className="relative flex items-center justify-center">
-        <div
-        // className="absolute h-24 w-24 rounded-full bg-indigo-500/20 blur-xl"
-        // style={{ animation: 'ob-pulse 1.6s ease-in-out infinite' }}
-        />
+        <div />
         <Image
           src="/images/OB72loader.gif"
           alt="Open Box loading"
