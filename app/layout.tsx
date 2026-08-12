@@ -6,7 +6,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { RouteTransitionProvider } from '@/components/RouteTransitionProvider'
+import { RouteTransitionProvider, RouteTransitionView } from '@/components/RouteTransitionProvider'
 import { LoadingScreen } from '@/components/LoadingScreen'
 import { ScrollToTop } from '@/components/ScrollToTop'
 import { ConsentBanner } from '@/components/ConsentBanner'
@@ -191,7 +191,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <ScrollToTop />
             <LoadingScreen />
             <Navbar />
-            <main className="pt-16 min-h-screen">{children}</main>
+            <main className="pt-16 min-h-screen">
+              <RouteTransitionView>{children}</RouteTransitionView>
+            </main>
             <WhatsNewTab />
             <Footer />
             <ConsentBanner />
